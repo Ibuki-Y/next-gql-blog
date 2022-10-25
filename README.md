@@ -41,4 +41,14 @@ $ yarn add -D graphql
 
 # urql
 $ yarn add next-urql react-is urql graphql-tag
+
+# codegen
+$ yarn add -D @graphql-codegen/cli @graphql-codegen/typescript-urql @graphql-codegen/typescript-urql @graphql-codegen/typescript-operations
+```
+
+## GraphQL Codegen
+
+```bash
+# init
+$ yarn graphql-codegen init
 ```
