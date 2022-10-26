@@ -1,21 +1,13 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import {
-  Avatar,
-  Box,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Stack,
-} from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import { PostListView } from '../src/components/post/PostListView';
 import { urqlClient } from '../src/libs/gql-requests';
 import { PostIndexPageDocument } from '../src/graphql/generated.graphql';
+import { PostFragment } from '../src/graphql/generated.graphql';
 
 type Props = {
-  posts: {
-    id: string;
-    title: string;
-  }[];
+  articles: PostFragment[];
+  diaries: PostFragment[];
 };
 
 const Home: NextPage<Props> = (props) => {
@@ -25,16 +17,10 @@ const Home: NextPage<Props> = (props) => {
         minHeight: '100vh',
       }}
     >
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        {props.posts.map((post) => (
-          <ListItem key={post.id}>
-            <ListItemAvatar>
-              <Avatar>絵</Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={post.title} secondary="公開日" />
-          </ListItem>
-        ))}
-      </List>
+      <Typography variant="h4">Articles</Typography>
+      <PostListView posts={props.articles} />
+      <Typography variant="h4">Diaries</Typography>
+      <PostListView posts={props.diaries} />
       <Box
         sx={{
           bgColor: 'palette.primary.dark',
@@ -68,7 +54,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
     return {
       props: {
-        posts: result.data.posts,
+        articles: result.data.articles,
+        diaries: result.data.diaries,
       },
     };
   } catch (e) {
