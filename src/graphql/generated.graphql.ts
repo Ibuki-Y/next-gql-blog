@@ -31,9 +31,21 @@ export type PostModel = {
 
 export type Query = {
   __typename?: 'Query';
-  fixedPosts?: Maybe<Array<PostModel>>;
+  findPost: PostModel;
+  findPostById: PostModel;
   posts?: Maybe<Array<PostModel>>;
   prismaPosts?: Maybe<Array<PostModel>>;
+};
+
+
+export type QueryFindPostArgs = {
+  contentPath?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryFindPostByIdArgs = {
+  id?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -41,12 +53,19 @@ export type QueryPostsArgs = {
   type?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export type PostFragment = { __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null, emoji?: string | null };
+export type PostFragment = { __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null, emoji?: string | null, contentPath: string };
 
 export type PostIndexPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostIndexPageQuery = { __typename?: 'Query', articles?: Array<{ __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null, emoji?: string | null }> | null, diaries?: Array<{ __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null, emoji?: string | null }> | null };
+export type PostIndexPageQuery = { __typename?: 'Query', articles?: Array<{ __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null, emoji?: string | null, contentPath: string }> | null, diaries?: Array<{ __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null, emoji?: string | null, contentPath: string }> | null };
+
+export type PostDetailPageQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type PostDetailPageQuery = { __typename?: 'Query', post: { __typename?: 'PostModel', id: string, title: string, type: string, publishDate?: any | null, emoji?: string | null, contentPath: string } };
 
 export const PostFragmentDoc = gql`
     fragment Post on PostModel {
@@ -55,6 +74,7 @@ export const PostFragmentDoc = gql`
   type
   publishDate
   emoji
+  contentPath
 }
     `;
 export const PostIndexPageDocument = gql`
@@ -70,4 +90,15 @@ export const PostIndexPageDocument = gql`
 
 export function usePostIndexPageQuery(options?: Omit<Urql.UseQueryArgs<PostIndexPageQueryVariables>, 'query'>) {
   return Urql.useQuery<PostIndexPageQuery, PostIndexPageQueryVariables>({ query: PostIndexPageDocument, ...options });
+};
+export const PostDetailPageDocument = gql`
+    query PostDetailPage($id: String) {
+  post: findPostById(id: $id) {
+    ...Post
+  }
+}
+    ${PostFragmentDoc}`;
+
+export function usePostDetailPageQuery(options?: Omit<Urql.UseQueryArgs<PostDetailPageQueryVariables>, 'query'>) {
+  return Urql.useQuery<PostDetailPageQuery, PostDetailPageQueryVariables>({ query: PostDetailPageDocument, ...options });
 };

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   Avatar,
   Chip,
@@ -11,6 +12,7 @@ import {
 import { grey } from '@mui/material/colors';
 import { PostFragment } from '../../graphql/generated.graphql';
 import { isoStringToJstDate } from '../../libs/date';
+// import { contentUrl } from '../../libs/site';
 
 type Props = {
   posts: PostFragment[];
@@ -24,16 +26,22 @@ export function PostListView(props: Props): React.ReactElement {
           <ListItemAvatar>
             <Avatar sx={{ bgcolor: grey[300] }}> {post.emoji}</Avatar>
           </ListItemAvatar>
-          <ListItemText
-            disableTypography
-            primary={post.title}
-            secondary={
-              <Stack direction="row" spacing={2}>
-                <Chip size="small" color="warning" label={post.type} />
-                <Typography>{isoStringToJstDate(post.publishDate)}</Typography>
-              </Stack>
-            }
-          />
+          <Link href={`posts/${post.id}`}>
+            <a>
+              <ListItemText
+                disableTypography
+                primary={post.title}
+                secondary={
+                  <Stack direction="row" spacing={2}>
+                    <Chip size="small" color="warning" label={post.type} />
+                    <Typography>
+                      {isoStringToJstDate(post.publishDate)}
+                    </Typography>
+                  </Stack>
+                }
+              />
+            </a>
+          </Link>
         </ListItem>
       ))}
     </List>

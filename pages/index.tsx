@@ -38,7 +38,7 @@ const Home: NextPage<Props> = (props) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Powered by Hakodate
+            Powered by Vercel
           </a>
         </footer>
       </Box>

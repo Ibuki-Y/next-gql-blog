@@ -53,6 +53,9 @@ $ yarn add @emotion/cache @emotion/server
 
 # date
 $ yarn add date-fns-tz date-fns
+
+# markdown
+$ yarn add zenn-markdown-html@latest zenn-content-css@latest zenn-embed-elements@latest
 ```
 
 ## GraphQL Codegen
