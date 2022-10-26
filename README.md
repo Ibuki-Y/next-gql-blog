@@ -44,6 +44,12 @@ $ yarn add next-urql react-is urql graphql-tag
 
 # codegen
 $ yarn add -D @graphql-codegen/cli @graphql-codegen/typescript-urql @graphql-codegen/typescript-urql @graphql-codegen/typescript-operations
+
+# MUI
+$ yarn add @mui/material @emotion/react @emotion/styled
+
+# emotion
+$ yarn add @emotion/cache @emotion/server
 ```
 
 ## GraphQL Codegen
@@ -51,4 +57,7 @@ $ yarn add -D @graphql-codegen/cli @graphql-codegen/typescript-urql @graphql-cod
 ```bash
 # init
 $ yarn graphql-codegen init
+
+# run
+$ yarn codegen
 ```
