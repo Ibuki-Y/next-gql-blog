@@ -25,6 +25,13 @@ fragment Impression on ImpressionModel {
   createdAt
 }
 
+fragment PageInfo on PageInfoModel {
+  startCursor
+  endCursor
+  hasNextPage
+  hasPreviousPage
+}
+
 query PostIndexPage {
   # Aliases #
   articles: posts(type: ["article"]) {
@@ -51,6 +58,17 @@ query PostDetailPage($id: String) {
 #     # bodyMarkdown
 #   }
 # }
+
+query PostsAllPage($cursor: String, $first: Int, $last: Int) {
+  allPublished: postsConnection(cursor: $cursor, first: $first, last: $last) {
+    nodes {
+      ...Post
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
 
 query ImpressionContainer($postId: String!) {
   impressions(postId: $postId, sortAs: "asc") {
