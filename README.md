@@ -57,6 +57,9 @@ $ yarn add date-fns-tz date-fns
 
 # markdown
 $ yarn add zenn-markdown-html@latest zenn-content-css@latest zenn-embed-elements@latest
+
+# dayjs
+$ yarn add dayjs
 ```
 
 ## GraphQL Codegen

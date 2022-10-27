@@ -1,8 +1,10 @@
 import React from 'react';
 import { GetServerSideProps, NextPage } from 'next';
+import { withUrqlClient } from 'next-urql';
 import { Box, Stack, Typography } from '@mui/material';
 // import markdownToHtml from 'zenn-markdown-html';
 // import 'zenn-content-css';
+import { ImpressionContainer } from '../../src/components/impression/ImpressionContainer';
 import {
   PostFragment,
   PostDetailPageDocument,
@@ -10,6 +12,7 @@ import {
 import { urqlClient } from '../../src/libs/gql-requests';
 // import { contentPath } from '../../src/libs/site';
 import { isoStringToJstDate } from '../../src/libs/date';
+import { getGraphqlEndpoint } from '../../src/libs/site';
 
 type Props = {
   post: PostFragment;
@@ -54,6 +57,7 @@ const Page: NextPage<Props> = ({ post }) => {
               }}
             ></div>
           </Box> */}
+          <ImpressionContainer postId={post.id} />
         </Stack>
       </article>
     </Box>
@@ -100,4 +104,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   }
 };
 
-export default Page;
+export default withUrqlClient(
+  (_ssrExchange, ctx) => ({
+    url: getGraphqlEndpoint(),
+  }),
+  { ssr: false },
+)(Page);
