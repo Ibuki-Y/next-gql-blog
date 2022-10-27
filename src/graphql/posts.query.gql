@@ -8,6 +8,14 @@ fragment Post on PostModel {
   contentPath
 }
 
+fragment Profile on ProfileModel {
+  handleName
+  position
+  summary
+  twitter
+  github
+}
+
 query PostIndexPage {
   # Aliases #
   articles: posts(type: ["article"]) {
@@ -15,6 +23,9 @@ query PostIndexPage {
   }
   diaries: posts(type: ["diary"]) {
     ...Post
+  }
+  profile {
+    ...Profile
   }
 }
 

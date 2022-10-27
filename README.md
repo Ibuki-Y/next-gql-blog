@@ -47,6 +47,7 @@ $ yarn add -D @graphql-codegen/cli @graphql-codegen/typescript-urql @graphql-cod
 
 # MUI
 $ yarn add @mui/material @emotion/react @emotion/styled
+$ yarn add @mui/icons-material
 
 # emotion
 $ yarn add @emotion/cache @emotion/server
